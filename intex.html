@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Word Counter - By Aditi Tiwari</title>
+<style>
+body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
+textarea { width: 80%; height: 150px; padding: 10px; font-size: 16px; }
+.container { max-width: 600px; margin: auto; }
+.stats { margin-top: 20px; font-size: 18px; }
+button { padding: 10px 15px; margin: 5px; cursor: pointer; }
+</style>
+</head>
+<body>
+<h1>Word Counter - By Aditi Tiwari</h1>
+<div class="container">
+<textarea id="textInput" placeholder="Type or paste your text here..."></textarea>
+<div class="stats">
+<p>Words: <span id="wordCount">0</span></p>
+<p>Characters: <span id="charCount">0</span></p>
+<p>Reading Time: <span id="readTime">0</span> sec</p>
+</div>
+<button onclick="clearText()">Clear</button>
+<button onclick="copyText()">Copy</button>
+</div>
+<script>
+function updateCount() {
+let text = document.getElementById('textInput').value;
+let words = text.trim().split(/\s+/).filter(word => word.length > 0).length;
+let chars = text.length;
+let readTime = Math.ceil(words / 200 * 60); // Avg. reading speed 200 WPM
+
+document.getElementById('wordCount').innerText = words;
+document.getElementById('charCount').innerText = chars;
+document.getElementById('readTime').innerText = readTime;
+}
+
+function clearText() {
+document.getElementById('textInput').value = "";
+updateCount();
+}
+
+function copyText() {
+let text = document.getElementById('textInput');
+text.select();
+document.execCommand('copy');
+alert('Text copied!');
+}
+
+document.getElementById('textInput').addEventListener('input', updateCount);
+</script>
+</body>
+</html>
